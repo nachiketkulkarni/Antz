@@ -1,16 +1,21 @@
-//
-//  Display.cpp
-//  Antz
-//
-//  Created by Zhi Xing on 2/19/15.
-//  Copyright (c) 2015 Zhi Xing. All rights reserved.
-//
+/*
+ * Antz
+ * Antz Framework
+ * Display.cpp
+ *	Definitions of various functions of display
+ * 
+ * Copyright: 2015 Ac Zhi Xing <zxing01@syr.edu>. All rights reserved.
+ * License: <#license#>
+ */
 
 #include "Display.h"
 
 using namespace Antz;
 
-////////////////////////////////////////////////////////////////
+/* 
+ * Display -- constructor 
+ *	Initialize all the required pins as output pins
+ */
 Display::Display():curNum(0) {
     pinMode(HIGH1, OUTPUT);
     pinMode(HIGH2, OUTPUT);
@@ -28,7 +33,10 @@ Display::Display():curNum(0) {
     pinMode(YELLOW, OUTPUT);
 }
 
-////////////////////////////////////////////////////////////////
+/* 
+ * red -- function dealing with red led
+ * @on:		flag telling what to do with the red led
+ */
 void Display::red(bool on) {
     if (on)
         digitalWrite(RED, HIGH);
@@ -36,7 +44,10 @@ void Display::red(bool on) {
         digitalWrite(RED, LOW);
 }
 
-////////////////////////////////////////////////////////////////
+/* 
+ * green -- function dealing with green led
+ * @on:		flag telling what to do with the green led
+ */
 void Display::green(bool on) {
     if (on)
         digitalWrite(GREEN, HIGH);
@@ -44,7 +55,10 @@ void Display::green(bool on) {
         digitalWrite(GREEN, LOW);
 }
 
-////////////////////////////////////////////////////////////////
+/* 
+ * blue -- function dealing with blue led
+ * @on:		flag telling what to do with the blue led
+ */
 void Display::blue(bool on) {
     if (on)
         digitalWrite(BLUE, HIGH);
@@ -52,7 +66,10 @@ void Display::blue(bool on) {
         digitalWrite(BLUE, LOW);
 }
 
-////////////////////////////////////////////////////////////////
+/* 
+ * yellow -- function dealing with yellow led
+ * @on:		flag telling what to do with the yellow led
+ */
 void Display::yellow(bool on) {
     if (on)
         digitalWrite(YELLOW, HIGH);
@@ -60,7 +77,21 @@ void Display::yellow(bool on) {
         digitalWrite(YELLOW, LOW);
 }
 
-////////////////////////////////////////////////////////////////
+/*
+ * number -- displays the specified number depending on the 'on' flag
+ *	     it is a seven segment display display with a dot on bottom right
+ * 
+ *           --
+ *	    |  |
+ *           __
+ *          |  |
+ *           __  *
+ *
+ *	     every segment is an individual led and all of them are connected to a 5V power supply
+ *	     so when an led is set to LOW, the potential difference gets created, the current flows and it glows
+ * @on:		flag telling what to do with the led s constituting the curNum
+ * @n:		the number to be displayed
+ */
 void Display::number(bool on, uint8_t n) {
     curNum = n;
     if (!on) {
@@ -71,126 +102,129 @@ void Display::number(bool on, uint8_t n) {
         digitalWrite(HIGH1, HIGH);
         digitalWrite(HIGH2, HIGH);
         switch (n) {
-            case 0:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, HIGH);
-                digitalWrite(BOT, LOW);
-                digitalWrite(TOPLEFT, LOW);
-                digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, LOW);
-                digitalWrite(BOTRGHT, LOW);
-                digitalWrite(DOT, HIGH);
+            case 0:				// display 0
+                digitalWrite(TOP, LOW);		//
+                digitalWrite(MID, HIGH);	//  --
+                digitalWrite(BOT, LOW);		// |  |
+                digitalWrite(TOPLEFT, LOW);	// |  | 
+                digitalWrite(TOPRGHT, LOW);	//  --
+                digitalWrite(BOTLEFT, LOW);	//
+                digitalWrite(BOTRGHT, LOW);	//
+                digitalWrite(DOT, HIGH);	//
                 break;
-            case 1:
-                digitalWrite(TOP, HIGH);
-                digitalWrite(MID, HIGH);
-                digitalWrite(BOT, HIGH);
-                digitalWrite(TOPLEFT, HIGH);
-                digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, HIGH);
-                digitalWrite(BOTRGHT, LOW);
-                digitalWrite(DOT, HIGH);
+            case 1:				// dispaly 1
+                digitalWrite(TOP, HIGH);	//
+                digitalWrite(MID, HIGH);	//    |
+                digitalWrite(BOT, HIGH);	//    |
+                digitalWrite(TOPLEFT, HIGH);	//
+                digitalWrite(TOPRGHT, LOW);	//
+                digitalWrite(BOTLEFT, HIGH);	//
+                digitalWrite(BOTRGHT, LOW);	//
+                digitalWrite(DOT, HIGH);	//
                 break;
-            case 2:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, LOW);
-                digitalWrite(BOT, LOW);
-                digitalWrite(TOPLEFT, HIGH);
-                digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, LOW);
-                digitalWrite(BOTRGHT, HIGH);
-                digitalWrite(DOT, HIGH);
+            case 2:				// display 2
+                digitalWrite(TOP, LOW);		//
+                digitalWrite(MID, LOW);		//  --
+                digitalWrite(BOT, LOW);		//    |
+                digitalWrite(TOPLEFT, HIGH);	//  --
+		digitalWrite(TOPRGHT, LOW);	// | 
+                digitalWrite(BOTLEFT, LOW);	//  __
+                digitalWrite(BOTRGHT, HIGH);	//
+                digitalWrite(DOT, HIGH);	//
                 break;
-            case 3:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, LOW);
-                digitalWrite(BOT, LOW);
-                digitalWrite(TOPLEFT, HIGH);
-                digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, HIGH);
-                digitalWrite(BOTRGHT, LOW);
-                digitalWrite(DOT, HIGH);
+            case 3:				// display 3
+                digitalWrite(TOP, LOW);		//
+                digitalWrite(MID, LOW);		//  __
+                digitalWrite(BOT, LOW);		//    |
+                digitalWrite(TOPLEFT, HIGH);	//  --
+                digitalWrite(TOPRGHT, LOW);	//    |
+                digitalWrite(BOTLEFT, HIGH);	//  --
+                digitalWrite(BOTRGHT, LOW);	//
+                digitalWrite(DOT, HIGH);	//
                 break;
-            case 4:
-                digitalWrite(TOP, HIGH);
-                digitalWrite(MID, LOW);
-                digitalWrite(BOT, HIGH);
-                digitalWrite(TOPLEFT, LOW);
-                digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, HIGH);
-                digitalWrite(BOTRGHT, LOW);
-                digitalWrite(DOT, HIGH);
+            case 4:				// display 4
+                digitalWrite(TOP, HIGH);	// 
+                digitalWrite(MID, LOW);		//  |  |
+                digitalWrite(BOT, HIGH);	//   __
+                digitalWrite(TOPLEFT, LOW);	//     |
+                digitalWrite(TOPRGHT, LOW);	//
+                digitalWrite(BOTLEFT, HIGH);	//	
+                digitalWrite(BOTRGHT, LOW);	//
+                digitalWrite(DOT, HIGH);	//
                 break;
-            case 5:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, LOW);
-                digitalWrite(BOT, LOW);
-                digitalWrite(TOPLEFT, LOW);
-                digitalWrite(TOPRGHT, HIGH);
-                digitalWrite(BOTLEFT, HIGH);
-                digitalWrite(BOTRGHT, LOW);
-                digitalWrite(DOT, HIGH);
+	    case 5:				// display 5
+                digitalWrite(TOP, LOW);		//
+                digitalWrite(MID, LOW);		//  __
+                digitalWrite(BOT, LOW);		// |
+                digitalWrite(TOPLEFT, LOW);	//  __
+                digitalWrite(TOPRGHT, HIGH);	//    |
+                digitalWrite(BOTLEFT, HIGH);	//  --
+                digitalWrite(BOTRGHT, LOW);	//
+                digitalWrite(DOT, HIGH);	//
+                break;	
+            case 6:				// display 6
+                digitalWrite(TOP, LOW);		//
+                digitalWrite(MID, LOW);		//  __
+                digitalWrite(BOT, LOW);		// |
+                digitalWrite(TOPLEFT, LOW);	//  __
+                digitalWrite(TOPRGHT, HIGH);	// |  |
+                digitalWrite(BOTLEFT, LOW);	//  __
+                digitalWrite(BOTRGHT, LOW);	//
+                digitalWrite(DOT, HIGH);	//
                 break;
-            case 6:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, LOW);
-                digitalWrite(BOT, LOW);
-                digitalWrite(TOPLEFT, LOW);
-                digitalWrite(TOPRGHT, HIGH);
-                digitalWrite(BOTLEFT, LOW);
-                digitalWrite(BOTRGHT, LOW);
-                digitalWrite(DOT, HIGH);
-                break;
-            case 7:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, HIGH);
-                digitalWrite(BOT, HIGH);
-                digitalWrite(TOPLEFT, HIGH);
-                digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, HIGH);
-                digitalWrite(BOTRGHT, LOW);
-                digitalWrite(DOT, HIGH);
-                break;
-            case 8:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, LOW);
-                digitalWrite(BOT, LOW);
-                digitalWrite(TOPLEFT, LOW);
-                digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, LOW);
-                digitalWrite(BOTRGHT, LOW);
-                digitalWrite(DOT, HIGH);
-                break;
-            case 9:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, LOW);
-                digitalWrite(BOT, LOW);
-                digitalWrite(TOPLEFT, LOW);
-                digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, HIGH);
-                digitalWrite(BOTRGHT, LOW);
-                digitalWrite(DOT, HIGH);
-                break;
-            default:
-                digitalWrite(TOP, HIGH);
-                digitalWrite(MID, HIGH);
-                digitalWrite(BOT, HIGH);
-                digitalWrite(TOPLEFT, HIGH);
-                digitalWrite(TOPRGHT, HIGH);
-                digitalWrite(BOTLEFT, HIGH);
-                digitalWrite(BOTRGHT, HIGH);
-                digitalWrite(DOT, LOW);
+            case 7:				// display 7
+                digitalWrite(TOP, LOW);		//
+                digitalWrite(MID, HIGH);	//  --
+                digitalWrite(BOT, HIGH);	//    |
+                digitalWrite(TOPLEFT, HIGH);	//    |
+                digitalWrite(TOPRGHT, LOW);	//
+                digitalWrite(BOTLEFT, HIGH);	//
+                digitalWrite(BOTRGHT, LOW);	//
+                digitalWrite(DOT, HIGH);	//
+                break;	
+            case 8:				// display 8
+                digitalWrite(TOP, LOW);		//
+                digitalWrite(MID, LOW);		//  --
+                digitalWrite(BOT, LOW);		// |  |
+                digitalWrite(TOPLEFT, LOW);	//  __
+                digitalWrite(TOPRGHT, LOW);	// |  |
+                digitalWrite(BOTLEFT, LOW);	//  __
+                digitalWrite(BOTRGHT, LOW);	//
+                digitalWrite(DOT, HIGH);	//
+                break;	
+            case 9:				// display 9
+                digitalWrite(TOP, LOW);		//
+                digitalWrite(MID, LOW);		//  __
+                digitalWrite(BOT, LOW);		// |  |
+                digitalWrite(TOPLEFT, LOW);	//  __
+                digitalWrite(TOPRGHT, LOW);	//    |
+                digitalWrite(BOTLEFT, HIGH);	//  __
+                digitalWrite(BOTRGHT, LOW);	//
+                digitalWrite(DOT, HIGH);	//
+                break;	
+            default:				// when the number is something other than above numbers
+                digitalWrite(TOP, HIGH);	//
+                digitalWrite(MID, HIGH);	//  
+                digitalWrite(BOT, HIGH);	//  
+                digitalWrite(TOPLEFT, HIGH);	// 
+                digitalWrite(TOPRGHT, HIGH);	//      *
+                digitalWrite(BOTLEFT, HIGH);	//
+                digitalWrite(BOTRGHT, HIGH);	//
+                digitalWrite(DOT, LOW);		//
                 break;
         }
     }
 }
 
-////////////////////////////////////////////////////////////////
+/*
+ * number -- displays the curNum number
+ * @on:		flag telling what to do with the led s constituting the curNum
+ */
 void Display::number(bool on) {
     number(on, curNum);
 }
 
-////////////////////////////////////////////////////////////////
+/* currentNumber -- returns curNum */
 uint8_t Display::currentNumber() {
     return curNum;
 }

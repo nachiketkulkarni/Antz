@@ -1,16 +1,20 @@
-//
-//  Display.h
-//  Antz
-//
-//  Created by Zhi Xing on 2/19/15.
-//  Copyright (c) 2015 Zhi Xing. All rights reserved.
-//
+/*
+ * Antz
+ * Antz Framework
+ * Display.h
+ *	Declaration of class Display in namespace Antz
+ *
+ * Copyright: 2015 Ac Zhi Xing <zxing01@syr.edu>. All rights reserved.
+ * License: <#license#>
+ */
+
 
 #ifndef __Antz__Display__
 #define __Antz__Display__
 
 #include <Arduino.h>
 
+/* Pin numbers of Arduino board where the respective display lights are connected */
 #define HIGH1       24
 #define HIGH2       31
 #define TOP         22
